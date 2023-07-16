@@ -12,6 +12,6 @@ public interface Pokeapi {
     Call<PokemonSpecies> fetchSpeciesById(@Path("id") int id);
 
     @GET("evolution-chain/{id}")
-    Call<PokEvolution> fetchEvolutionById(@Path("id") int id);
+    Call<PokemonEvolution> fetchEvolutionById(@Path("id") int id);
 
 }

@@ -2,7 +2,7 @@ package br.ifmg.edu.bsi.progmovel.pokedex1.dados;
 
 import java.io.IOException;
 
-import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokEvolution;
+import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonEvolution;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokeapi;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokemon;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonSpecies;
@@ -25,9 +25,9 @@ public class PokemonRepo {
         return ps;
     }
 
-    public PokEvolution buscarEvolution(int id) throws IOException {
-        PokEvolution ev = api.fetchEvolutionById(id).execute().body();
-        return ev;
+    public PokemonEvolution buscarEvolution(int id) throws IOException {
+        PokemonEvolution pe = api.fetchEvolutionById(id).execute().body();
+        return pe;
     }
 
 

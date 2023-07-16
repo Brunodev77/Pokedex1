@@ -15,7 +15,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.PokedexApplication;
-import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokEvolution;
+import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Evolution;
+import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonEvolution;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonSpecies;
 
 public class PokemonEvolutionViewModel extends ViewModel {
@@ -40,8 +41,9 @@ public class PokemonEvolutionViewModel extends ViewModel {
             try {
                 PokemonSpecies ps = app.getPokemonRepo().buscarSpecies(idSpecies);
                 int idEv = getUrlId(ps.evolution_chain.url);
-                PokEvolution ev = app.getPokemonRepo().buscarEvolution(idEv);
-                getEvolution(ev);
+                Log.d("idEv","idEv="+ idEv);
+                PokemonEvolution ev = app.getPokemonRepo().buscarEvolution(idEv);
+                getEvolution(ev.chain.evolves_to);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -51,10 +53,13 @@ public class PokemonEvolutionViewModel extends ViewModel {
         });
     }
     
-    public void getEvolution(PokEvolution evolves){
+    public void getEvolution(Evolution[] evolves){
 
-        for (PokEvolution ev1: evolves) {
-            Log.d("ev1","ev1="+ ev1.evolves_to);
+        for (Evolution ev1: evolves) {
+            Log.d("ev1","ev1="+ ev1);
+            for (Evolution ev2: ev1.evolves_to ) {
+                Log.d("ev2","ev2="+ ev2.species.name);
+            }
         }
     }
 
