@@ -1,6 +1,8 @@
 package br.ifmg.edu.bsi.progmovel.pokedex1;
 
 import android.app.Application;
+import android.content.Intent;
+import android.view.View;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -8,6 +10,7 @@ import java.util.concurrent.Executors;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokeapi;
 import br.ifmg.edu.bsi.progmovel.pokedex1.dados.PokemonRepo;
+import br.ifmg.edu.bsi.progmovel.pokedex1.verpokemon.VerPokemonActivity;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

@@ -1,7 +1,9 @@
-package br.ifmg.edu.bsi.progmovel.pokedex1;
+package br.ifmg.edu.bsi.progmovel.pokedex1.verpokemon;
 
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
+
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -11,10 +13,9 @@ import androidx.lifecycle.viewmodel.ViewModelInitializer;
 
 import java.io.IOException;
 
-import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokeapi;
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokedexApplication;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokemon;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import br.ifmg.edu.bsi.progmovel.pokedex1.pokemonevolution.PokemonEvolutionActivity;
 
 public class VerPokemonViewModel extends ViewModel {
     private PokedexApplication app;
@@ -23,6 +24,8 @@ public class VerPokemonViewModel extends ViewModel {
     private MutableLiveData<String> urlImagem;
     private MutableLiveData<Integer> height;
     private MutableLiveData<Integer> weight;
+
+    private MutableLiveData<String> species;
 
     public static ViewModelInitializer<VerPokemonViewModel> initializer = new ViewModelInitializer<>(
             VerPokemonViewModel.class,
@@ -35,6 +38,7 @@ public class VerPokemonViewModel extends ViewModel {
         urlImagem = new MutableLiveData<>();
         height = new MutableLiveData<>();
         weight = new MutableLiveData<>();
+        species = new MutableLiveData<>();
     }
 
     public void loadPokemon(String nomePokemon) {
@@ -47,6 +51,8 @@ public class VerPokemonViewModel extends ViewModel {
                 height.postValue(p.height);
                 weight.postValue(p.weight);
                 urlImagem.postValue(p.sprites.other.officialArtwork.front_default);
+                PokemonEvolutionActivity.urlSpecies = p.species.url;
+                Log.d("Species.url","Species.url="+ p.species.url);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {

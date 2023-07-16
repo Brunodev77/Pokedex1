@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.databinding.ActivityMainBinding;
+import br.ifmg.edu.bsi.progmovel.pokedex1.pokemonevolution.PokemonEvolutionActivity;
+import br.ifmg.edu.bsi.progmovel.pokedex1.verpokemon.VerPokemonActivity;
 
 public class MainActivity extends AppCompatActivity {
 

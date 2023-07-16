@@ -1,9 +1,12 @@
-package br.ifmg.edu.bsi.progmovel.pokedex1;
+package br.ifmg.edu.bsi.progmovel.pokedex1.verpokemon;
 
 import static androidx.lifecycle.ViewModelProvider.Factory.from;
+import static br.ifmg.edu.bsi.progmovel.pokedex1.pokemonevolution.PokemonEvolutionActivity.urlSpecies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,11 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.squareup.picasso.Picasso;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.databinding.ActivityVerPokemonBinding;
+import br.ifmg.edu.bsi.progmovel.pokedex1.pokemonevolution.PokemonEvolutionActivity;
 
 public class VerPokemonActivity extends AppCompatActivity {
 
     public static final String EXTRA_NOME_POKEMON = "br.ifmg.edu.bsi.progmovel.pokedex1.extra_nome_pokemon";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,4 +53,11 @@ public class VerPokemonActivity extends AppCompatActivity {
         // Bora carregar o monstro.
         vm.loadPokemon(nomePokemon);
     }
+
+    public void onClickEvolution(View view) {
+        Log.d("especies",urlSpecies);
+        Intent intent = new Intent(this, PokemonEvolutionActivity.class);
+        startActivity(intent);
+    }
+
 }
