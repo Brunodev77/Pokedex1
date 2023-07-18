@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.PokedexApplication;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokemon;
-import br.ifmg.edu.bsi.progmovel.pokedex1.pokemonevolution.PokemonEvolutionActivity;
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity;
 
 public class VerPokemonViewModel extends ViewModel {
     private PokedexApplication app;
@@ -52,7 +52,6 @@ public class VerPokemonViewModel extends ViewModel {
                 weight.postValue(p.weight);
                 urlImagem.postValue(p.sprites.other.officialArtwork.front_default);
                 PokemonEvolutionActivity.urlSpecies = p.species.url;
-                Log.d("Species.url","Species.url="+ p.species.url);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {

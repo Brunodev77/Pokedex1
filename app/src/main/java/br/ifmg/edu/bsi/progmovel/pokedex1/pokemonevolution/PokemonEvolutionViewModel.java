@@ -1,7 +1,7 @@
 package br.ifmg.edu.bsi.progmovel.pokedex1.pokemonevolution;
 
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
-import static br.ifmg.edu.bsi.progmovel.pokedex1.pokemonevolution.PokemonEvolutionActivity.urlSpecies;
+import static br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity.urlSpecies;
 
 import android.util.Log;
 import android.view.View;
@@ -15,13 +15,19 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.PokedexApplication;
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Evolution;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonEvolution;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonSpecies;
+import br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.PokemonsName;
+import br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.Repositorio;
 
 public class PokemonEvolutionViewModel extends ViewModel {
     private PokedexApplication app;
     private MutableLiveData<Integer> loading;
+
+    private MutableLiveData<String> nome;
+
 
     public static ViewModelInitializer<PokemonEvolutionViewModel> initializer = new ViewModelInitializer<>(
             PokemonEvolutionViewModel.class,
@@ -30,37 +36,26 @@ public class PokemonEvolutionViewModel extends ViewModel {
     public PokemonEvolutionViewModel(PokedexApplication app) {
         this.app = app;
         loading = new MutableLiveData<>(View.GONE);
+        nome = new MutableLiveData<>();
     }
 
     public void loadSpecies() {
         loading.setValue(View.VISIBLE);
         app.getExecutor().execute(() -> {
-
             int idSpecies = getUrlId(urlSpecies);
-
             try {
                 PokemonSpecies ps = app.getPokemonRepo().buscarSpecies(idSpecies);
                 int idEv = getUrlId(ps.evolution_chain.url);
-                Log.d("idEv","idEv="+ idEv);
                 PokemonEvolution ev = app.getPokemonRepo().buscarEvolution(idEv);
-                getEvolution(ev.chain.evolves_to);
+                PokemonEvolutionActivity.evolves = ev.chain.evolves_to;
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            }finally {
+            } finally {
                 loading.postValue(View.GONE);
+
             }
         });
-    }
-    
-    public void getEvolution(Evolution[] evolves){
-
-        for (Evolution ev1: evolves) {
-            Log.d("ev1","ev1="+ ev1);
-            for (Evolution ev2: ev1.evolves_to ) {
-                Log.d("ev2","ev2="+ ev2.species.name);
-            }
-        }
     }
 
     public int getUrlId(String url) {
@@ -74,5 +69,9 @@ public class PokemonEvolutionViewModel extends ViewModel {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public MutableLiveData<String> getNome() {
+        return nome;
     }
 }
