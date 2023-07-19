@@ -2,8 +2,6 @@ package br.ifmg.edu.bsi.progmovel.pokedex1.verpokemon;
 
 import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
 
-
-import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -15,7 +13,7 @@ import java.io.IOException;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.PokedexApplication;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokemon;
-import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity;
+import br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.PokemonEvolutionActivity;
 
 public class VerPokemonViewModel extends ViewModel {
     private PokedexApplication app;
@@ -44,7 +42,6 @@ public class VerPokemonViewModel extends ViewModel {
     public void loadPokemon(String nomePokemon) {
         loading.setValue(View.VISIBLE);
         app.getExecutor().execute(() -> {
-
             try {
                 Pokemon p = app.getPokemonRepo().buscar(nomePokemon);
                 nome.postValue(p.name);

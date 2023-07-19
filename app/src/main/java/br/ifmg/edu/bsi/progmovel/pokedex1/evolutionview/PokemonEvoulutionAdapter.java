@@ -36,4 +36,6 @@ public class PokemonEvoulutionAdapter extends RecyclerView.Adapter<PokemonsViewH
     public int getItemCount() {
         return pName.size();
     }
+
+    
 }

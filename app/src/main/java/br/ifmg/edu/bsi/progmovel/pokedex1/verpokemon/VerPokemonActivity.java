@@ -1,11 +1,9 @@
 package br.ifmg.edu.bsi.progmovel.pokedex1.verpokemon;
 
 import static androidx.lifecycle.ViewModelProvider.Factory.from;
-import static br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity.urlSpecies;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.squareup.picasso.Picasso;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.databinding.ActivityVerPokemonBinding;
-import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity;
+import br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.PokemonEvolutionActivity;
 
 public class VerPokemonActivity extends AppCompatActivity {
 
