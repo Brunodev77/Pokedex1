@@ -38,6 +38,7 @@ public class PokemonEvolutionActivity extends AppCompatActivity {
 
 
         PokemonEvoulutionAdapter adapter = new PokemonEvoulutionAdapter(Repositorio.pName);
+        //PokemonEvoulutionAdapter adapter = new PokemonEvoulutionAdapter(this,pvm);
         RecyclerView lista = findViewById(R.id.lista);
         lista.setLayoutManager(new LinearLayoutManager(this));
         lista.setAdapter(adapter);
