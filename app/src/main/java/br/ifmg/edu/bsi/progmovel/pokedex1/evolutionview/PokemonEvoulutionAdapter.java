@@ -18,6 +18,11 @@ public class PokemonEvoulutionAdapter extends RecyclerView.Adapter<PokemonsViewH
     public PokemonEvoulutionAdapter(List<PokemonsName> pName) {
         this.pName = pName;
     }
+/*
+        public PokemonEvoulutionAdapter(LifecycleOwner lifecycleOwner, PokemonEvolutionViewModel vm) {
+        //this.pName = Collections.emptyList();
+        this.pName = Collections.emptyList();
+*/
 
     @NonNull
     @Override
