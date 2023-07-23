@@ -12,8 +12,9 @@ import androidx.lifecycle.viewmodel.ViewModelInitializer;
 import java.io.IOException;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.PokedexApplication;
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity;
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionViewModel;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Pokemon;
-import br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.PokemonEvolutionActivity;
 
 public class VerPokemonViewModel extends ViewModel {
     private PokedexApplication app;
@@ -37,6 +38,7 @@ public class VerPokemonViewModel extends ViewModel {
         height = new MutableLiveData<>();
         weight = new MutableLiveData<>();
         species = new MutableLiveData<>();
+
     }
 
     public void loadPokemon(String nomePokemon) {

@@ -1,9 +1,13 @@
 package br.ifmg.edu.bsi.progmovel.pokedex1;
 
-import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
-import static br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.PokemonEvolutionActivity.urlSpecies;
+import static br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity.urlSpecies;
+
+import android.util.Log;
 import android.view.View;
 
+import static androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.viewmodel.ViewModelInitializer;
@@ -12,16 +16,15 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.Evolution;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonEvolution;
 import br.ifmg.edu.bsi.progmovel.pokedex1.apimodel.PokemonSpecies;
-import br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.PokemonEvolutionActivity;
 
 public class PokemonEvolutionViewModel extends ViewModel {
     private PokedexApplication app;
+    private MutableLiveData<String> mutablename;
+
     private MutableLiveData<Integer> loading;
-
-    private MutableLiveData<String> nome;
-
 
     public static ViewModelInitializer<PokemonEvolutionViewModel> initializer = new ViewModelInitializer<>(
             PokemonEvolutionViewModel.class,
@@ -30,18 +33,21 @@ public class PokemonEvolutionViewModel extends ViewModel {
     public PokemonEvolutionViewModel(PokedexApplication app) {
         this.app = app;
         loading = new MutableLiveData<>(View.GONE);
-        nome = new MutableLiveData<>();
+        mutablename = new MutableLiveData<>();
+        loadSpecies();
+
     }
 
     public void loadSpecies() {
         loading.setValue(View.VISIBLE);
         app.getExecutor().execute(() -> {
             int idSpecies = getUrlId(urlSpecies);
+            Log.d("idSpecies", "idSpecies"+idSpecies);
             try {
                 PokemonSpecies ps = app.getPokemonRepo().buscarSpecies(idSpecies);
                 int idEv = getUrlId(ps.evolution_chain.url);
                 PokemonEvolution ev = app.getPokemonRepo().buscarEvolution(idEv);
-                PokemonEvolutionActivity.evolves = ev.chain.evolves_to;
+                extractEvolution(ev.chain.evolves_to);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
@@ -50,7 +56,16 @@ public class PokemonEvolutionViewModel extends ViewModel {
         });
     }
 
+    public void extractEvolution(Evolution[] evolution){
+        for (Evolution ev1 : evolution) {
+            for (Evolution ev2 : ev1.evolves_to) {
+                mutablename.postValue(ev2.species.name);
+            }
+        }
+    }
+
     public int getUrlId(String url) {
+        Log.d("getUrlId", "getUrlId"+url);
         try {
             URI uri = new URI(url);
             String path = uri.getPath();
@@ -63,12 +78,11 @@ public class PokemonEvolutionViewModel extends ViewModel {
         return -1;
     }
 
-    public MutableLiveData<String> getNome() {
-        return nome;
-    }
-
-    public MutableLiveData<Integer> getLoading() {
+    public LiveData<Integer> getLoading() {
         return loading;
     }
 
+    public MutableLiveData<String> getMutablename() {
+        return mutablename;
+    }
 }

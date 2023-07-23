@@ -4,6 +4,7 @@ import static androidx.lifecycle.ViewModelProvider.Factory.from;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.squareup.picasso.Picasso;
 
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokedexApplication;
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionActivity;
+import br.ifmg.edu.bsi.progmovel.pokedex1.PokemonEvolutionViewModel;
+import br.ifmg.edu.bsi.progmovel.pokedex1.databinding.ActivityMainBinding;
+import br.ifmg.edu.bsi.progmovel.pokedex1.databinding.ActivityPokemonEvolutionBinding;
 import br.ifmg.edu.bsi.progmovel.pokedex1.databinding.ActivityVerPokemonBinding;
-import br.ifmg.edu.bsi.progmovel.pokedex1.evolutionview.PokemonEvolutionActivity;
 
 public class VerPokemonActivity extends AppCompatActivity {
 
@@ -53,8 +58,10 @@ public class VerPokemonActivity extends AppCompatActivity {
     }
 
     public void onClickEvolution(View view) {
-
         Intent intent = new Intent(this, PokemonEvolutionActivity.class);
+
+        PokedexApplication app = new PokedexApplication();
+        PokemonEvolutionViewModel pev = new PokemonEvolutionViewModel(app);
         startActivity(intent);
     }
 
