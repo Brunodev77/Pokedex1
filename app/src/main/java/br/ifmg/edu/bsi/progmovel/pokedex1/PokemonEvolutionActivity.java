@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import br.ifmg.edu.bsi.progmovel.pokedex1.databinding.ActivityPokemonEvolutionBinding;
-import br.ifmg.edu.bsi.progmovel.pokedex1.verpokemon.VerPokemonViewModel;
 
 public class PokemonEvolutionActivity extends AppCompatActivity {
 
@@ -31,9 +30,6 @@ public class PokemonEvolutionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String pEvolution = intent.getStringExtra(LIST_POKEMON_NAMES);
-        Log.d("pEvolution", "pEvolution= "+pEvolution);
-
-        //intent.putExtra(PokemonEvolutionActivity.LIST_POKEMON_NAMES,vm.getNome());
         binding.listEvolution.setText(pEvolution);
     }
 }

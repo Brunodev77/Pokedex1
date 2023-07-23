@@ -59,10 +59,8 @@ public class VerPokemonActivity extends AppCompatActivity {
 
     public void onClickEvolution(View view) {
         Intent intent = new Intent(this, PokemonEvolutionActivity.class);
-
         PokedexApplication app = new PokedexApplication();
-        PokemonEvolutionViewModel pev = new PokemonEvolutionViewModel(app);
+        new PokemonEvolutionViewModel(app);
         startActivity(intent);
     }
-
 }

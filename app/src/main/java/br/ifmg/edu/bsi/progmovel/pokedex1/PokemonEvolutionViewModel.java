@@ -42,7 +42,6 @@ public class PokemonEvolutionViewModel extends ViewModel {
         loading.setValue(View.VISIBLE);
         app.getExecutor().execute(() -> {
             int idSpecies = getUrlId(urlSpecies);
-            Log.d("idSpecies", "idSpecies"+idSpecies);
             try {
                 PokemonSpecies ps = app.getPokemonRepo().buscarSpecies(idSpecies);
                 int idEv = getUrlId(ps.evolution_chain.url);
@@ -57,15 +56,16 @@ public class PokemonEvolutionViewModel extends ViewModel {
     }
 
     public void extractEvolution(Evolution[] evolution){
+        String pEvoluton = "";
         for (Evolution ev1 : evolution) {
             for (Evolution ev2 : ev1.evolves_to) {
-                mutablename.postValue(ev2.species.name);
+                pEvoluton += ev2.species.name+"\n";
             }
         }
+        mutablename.postValue(pEvoluton);
     }
 
     public int getUrlId(String url) {
-        Log.d("getUrlId", "getUrlId"+url);
         try {
             URI uri = new URI(url);
             String path = uri.getPath();
